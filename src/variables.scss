@@ -1,1 +1,20 @@
 /* Variables and mixins declared here will be available in all other SCSS files */
+/* Variables and mixins declared here will be available in all other SCSS files */
+$primary-color: #333;
+$secondary-color: #999;
+$primary-text-color: #fff;
+$text-color: #333;
+
+@mixin primary-button {
+	background-color: $primary-color;
+	color: $primary-text-color;
+	border: none;
+	border-radius: 0.2rem;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+
+	&:hover {
+		background-color: lighten($color: $primary-color, $amount: 20%);
+	}
+}
