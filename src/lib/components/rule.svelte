@@ -116,6 +116,8 @@
 			display: grid;
 			place-items: center;
 
+			transition: background-color 0.2s ease-in-out;
+
 			&:checked {
 				background-color: $primary-color;
 				&::before {
@@ -127,9 +129,10 @@
 					border-radius: 50%;
 				}
 			}
-
-			&:focus {
-
+			
+			user-select: none;
+			&:focus, &:focus-visible {
+				outline-style: auto;
 			}
 		}
 
