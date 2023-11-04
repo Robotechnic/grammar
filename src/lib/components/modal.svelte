@@ -3,22 +3,29 @@
 
 	export let title: string;
 	export let message: string;
+	export let match: RegExp | null = null;
 
 	const dispatch = createEventDispatcher();
 
 	let dialog : HTMLDialogElement;
 	let text : string;
+	let errored = false;
 	
 	export function open() {
 		text = "";
+		errored = false;
 		dialog.showModal();
 	}
 
 	function close() {
-		console.log(dialog.returnValue)
 		if (dialog.returnValue === "default") {
 			if (text === undefined || text === "") {
 				dispatch("cancel");
+				return;
+			}
+			if (match !== null && !match.test(text)) {
+				errored = true;
+				dialog.showModal();
 				return;
 			}
 			dispatch("ok", text);
@@ -32,8 +39,9 @@
 	<div class="dialog">
 		<h1>{title}</h1>
 		<p>{message}</p>
+		<p class="errorMessage" class:show={errored}>Invalid input</p>
 		<form method="dialog">
-			<input class="input" type="text" bind:value={text} />
+			<input class="input" class:errored={errored} type="text" bind:value={text} />
 			<button class="ok" value="default">Ok</button>
 			<button class="cancel" value="cancel">Cancel</button>
 		</form>
@@ -63,6 +71,16 @@
 
 	p {
 		margin: 0;
+
+		&.errorMessage {
+			color: red;
+			font-size: 0.8rem;
+			display: none;
+		}
+
+		&.show {
+			display: block;
+		}
 	}
 
 	form {
@@ -77,6 +95,10 @@
 			border-radius: 0.2rem;
 			padding: 0.5rem;
 			grid-area: input;
+
+			&.errored {
+				border-color: red;
+			}
 		}
 
 		button {

@@ -21,6 +21,7 @@
 	<Modal
 		title="Add production rule"
 		message="Enter the name of the new production rule"
+		match={/^[a-zA-Z]$/}
 		bind:this={dialog}
 		on:ok={(e) => grammar.setProduction(e.detail, [""])}
 	/>
