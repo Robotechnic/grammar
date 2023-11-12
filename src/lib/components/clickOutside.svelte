@@ -1,9 +1,13 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte";
+
 	let element : HTMLElement | null = null
+
+	let dispatcher = createEventDispatcher()
 
 	function handleClick(event : MouseEvent) : void {
 		if (element && !element.contains(event.target as Node)) {
-			console.log("click outside")
+			dispatcher("clickOutside")
 		}
 	}
 </script>

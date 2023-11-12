@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { grammar } from "$lib/grammar";
 	import { afterUpdate, createEventDispatcher } from "svelte";
 
 	export let name: string;

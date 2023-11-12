@@ -1,10 +1,10 @@
 <script lang="ts">
   import RuleBar from './RuleBar.svelte';
 
-	import Rule from '$lib/components/rule.svelte';
-	import { grammar } from '$lib/grammar';
+  import { grammar } from '$lib/grammar';
+	import Manipulation from './Manipulation.svelte';
 
 </script>
 
 <RuleBar/>
-
+<Manipulation/>

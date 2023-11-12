@@ -38,6 +38,21 @@ function parseProduction(grammar: Grammar, production: string[]) {
 	return result
 }
 
+function updateProduction(grammar: Grammar, variable: string) {
+	grammar.productions.forEach((rules) => {
+		rules.forEach((rule) => {
+			rule.forEach((element, index) => {
+				if (typeof element == "string" && element == variable) {
+					rule[index] = {
+						letter: variable,
+						index
+					} as Variable
+				}
+			})
+		})
+	})
+}
+
 function createGrammarStore() {
 	const { subscribe, set, update } = writable<Grammar>({
 		productions: new Map<string, Rule[]>(),
@@ -62,6 +77,7 @@ function createGrammarStore() {
 		}),
 		setProduction: (variable: string, production: string[]) => update(grammar => {
 			grammar.productions.set(variable, parseProduction(grammar, production))
+			updateProduction(grammar, variable)
 			return grammar
 		}),
 		setStart: (start: string) => update(grammar => {
