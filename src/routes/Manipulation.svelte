@@ -78,7 +78,8 @@
 								class="possibility"
 								on:click={() => put_state(possibility)}
 								on:keypress={(event) => possibiliy_keydown(event, possibility)}
-								tabindex="0"
+								tabindex="-1"
+								role="button"
 							>
 								{#each possibility.rule as symbol}
 									<Symbol {symbol} />
@@ -88,7 +89,11 @@
 					</div>
 				{/if}
 			</ClickOutside>
-			<RuleDisplay bind:node={ruleDisplay} on:nonterminal={(event) => showPossibilities(event.detail)} {state} />
+			<RuleDisplay
+				bind:node={ruleDisplay}
+				on:nonterminal={(event) => showPossibilities(event.detail)}
+				{state}
+			/>
 		{/if}
 	</div>
 	<nav class="floating_nav">
@@ -125,7 +130,7 @@
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				padding: .2rem 1rem;
+				padding: 0.2rem 1rem;
 				border-radius: 1rem;
 				background-color: lighten($color: $primary-color, $amount: 50%);
 				transition: background-color 0.2s ease-in-out;
@@ -136,14 +141,15 @@
 					background-color: lighten($color: $primary-color, $amount: 25%);
 				}
 
-				&:focus, &:focus-visible {
+				&:focus,
+				&:focus-visible {
 					outline-style: auto;
 				}
 			}
 		}
 	}
 
-	.floating_nav{
+	.floating_nav {
 		position: absolute;
 		display: flex;
 		justify-content: center;
@@ -152,7 +158,7 @@
 		padding: 1rem;
 		top: 0;
 		right: 0;
-		
+
 		button {
 			@include primary-button;
 		}

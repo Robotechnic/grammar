@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
+	import { createEventDispatcher } from 'svelte';
 
 	export let title: string;
 	export let message: string;
@@ -7,20 +7,20 @@
 
 	const dispatch = createEventDispatcher();
 
-	let dialog : HTMLDialogElement;
-	let text : string;
+	let dialog: HTMLDialogElement;
+	let text: string;
 	let errored = false;
-	
+
 	export function open() {
-		text = "";
+		text = '';
 		errored = false;
 		dialog.showModal();
 	}
 
 	function close() {
-		if (dialog.returnValue === "default") {
-			if (text === undefined || text === "") {
-				dispatch("cancel");
+		if (dialog.returnValue === 'default') {
+			if (text === undefined || text === '') {
+				dispatch('cancel');
 				return;
 			}
 			if (match !== null && !match.test(text)) {
@@ -28,9 +28,9 @@
 				dialog.showModal();
 				return;
 			}
-			dispatch("ok", text);
+			dispatch('ok', text);
 		} else {
-			dispatch("cancel");
+			dispatch('cancel');
 		}
 	}
 </script>
@@ -41,7 +41,7 @@
 		<p>{message}</p>
 		<p class="errorMessage" class:show={errored}>Invalid input</p>
 		<form method="dialog">
-			<input class="input" class:errored={errored} type="text" bind:value={text} />
+			<input class="input" class:errored type="text" bind:value={text} />
 			<button class="ok" value="default">Ok</button>
 			<button class="cancel" value="cancel">Cancel</button>
 		</form>
@@ -85,9 +85,9 @@
 
 	form {
 		display: grid;
-		grid-template-areas: 
-		"input input"
-		"cancel ok";
+		grid-template-areas:
+			'input input'
+			'cancel ok';
 		gap: 0.3rem;
 
 		input {

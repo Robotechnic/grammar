@@ -3,7 +3,7 @@
 	import Rule from '$lib/components/rule.svelte';
 	import { grammar, ruleToString } from '$lib/grammar';
 
-	let dialog : Modal;
+	let dialog: Modal;
 </script>
 
 <nav class="productionRules">
@@ -18,13 +18,15 @@
 			/>
 		{/each}
 	</div>
-	<button class="productionRules__addButton" on:click={() => dialog.open()}>Add production rule</button>
+	<button class="productionRules__addButton" on:click={() => dialog.open()}
+		>Add production rule</button
+	>
 	<Modal
 		title="Add production rule"
 		message="Enter the name of the new production rule"
 		match={/^[a-zA-Z]$/}
 		bind:this={dialog}
-		on:ok={(e) => grammar.setProduction(e.detail, [""])}
+		on:ok={(e) => grammar.setProduction(e.detail, [''])}
 	/>
 </nav>
 
@@ -42,4 +44,3 @@
 		}
 	}
 </style>
-
