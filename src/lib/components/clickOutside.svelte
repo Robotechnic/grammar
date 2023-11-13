@@ -7,7 +7,7 @@
 
 	function handleClick(event : MouseEvent) : void {
 		if (element && !element.contains(event.target as Node)) {
-			dispatcher("clickOutside")
+			dispatcher("clickOutside", event.target)
 		}
 	}
 </script>

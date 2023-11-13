@@ -6,6 +6,7 @@
 	import { createEventDispatcher } from 'svelte';
 
 	export let state : Rule = []
+	export let node : HTMLDivElement
 
 	$: $grammar.start === "" ? state = [] : state = [{letter: $grammar.start, index: 0}]
 	let dispatcher = createEventDispatcher()
@@ -14,7 +15,7 @@
 	}
 </script>
 
-<div>
+<div class="rule_display" bind:this={node}>
 	{#each state as symbol}
 		<Symbol {symbol} on:nonterminal={(e) => showPossibilities(e.detail)} />
 	{/each}
