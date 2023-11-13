@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { afterUpdate, createEventDispatcher } from "svelte";
+	import add from "$lib/assets/icons/add.svg";
+	import del from "$lib/assets/icons/del.svg";
 
 	export let name: string;
 	export let rules: string[] = [""];
@@ -77,12 +79,12 @@
 			<li class="prule__applications__application">
 				<input type="text" bind:value={rules[i]} on:input={(e) => input(e.target, i)} />
 				<button class="prule__applications__removebutton" on:click={() => removeRule(i)}>
-					<img src="/icons/del.svg" alt="delete" />
+					<img src={del} alt="delete" />
 				</button>
 			</li>
 		{/each}
 		<button class="prule__applications__addbutton" on:click={addRule}>
-			<img src="/icons/add.svg" alt="add" />
+			<img src={add} alt="add" />
 		</button>
 	</ul>
 </div>
