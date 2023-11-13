@@ -17,9 +17,12 @@ const config = {
 			fallback: undefined,
 			precompress: false,
 			strict: true
-		})
-	},
-	appDir: "app"
+		}),
+		appDir: "app",
+		paths: {
+			base: "/play-with-grammar"
+		}
+	}
 };
 
 export default config;
