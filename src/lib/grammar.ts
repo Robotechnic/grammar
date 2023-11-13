@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
 
 export type Terminal = string | null;
 export type Variable = { letter: string; index: number };
@@ -20,13 +20,13 @@ function parseProduction(grammar: Grammar, production: string[]) {
 	const result: Rule[] = [];
 	production.forEach((rule) => {
 		const parsedRule: Rule = [];
-		rule.split('').forEach((letter, index) => {
+		rule.split("").forEach((letter, index) => {
 			if (grammar.productions.has(letter)) {
 				parsedRule.push({
 					letter,
 					index
 				} as Variable);
-			} else if (letter == 'ε') {
+			} else if (letter == "ε") {
 				parsedRule.push(null);
 			} else {
 				parsedRule.push(letter);
@@ -41,7 +41,7 @@ function updateProduction(grammar: Grammar, variable: string) {
 	grammar.productions.forEach((rules) => {
 		rules.forEach((rule) => {
 			rule.forEach((element, index) => {
-				if (typeof element == 'string' && element == variable) {
+				if (typeof element == "string" && element == variable) {
 					rule[index] = {
 						letter: variable,
 						index
@@ -55,7 +55,7 @@ function updateProduction(grammar: Grammar, variable: string) {
 function createGrammarStore() {
 	const { subscribe, set, update } = writable<Grammar>({
 		productions: new Map<string, Rule[]>(),
-		start: ''
+		start: ""
 	});
 
 	return {
@@ -65,7 +65,7 @@ function createGrammarStore() {
 		reset: () =>
 			set({
 				productions: new Map<string, Rule[]>(),
-				start: ''
+				start: ""
 			}),
 		addVariable: (variable: string) =>
 			update((grammar) => {
@@ -96,12 +96,12 @@ export function ruleToString(rule: Rule) {
 	return rule
 		.map((element) => {
 			if (element === null) {
-				return 'ε';
-			} else if (typeof element == 'string') {
+				return "ε";
+			} else if (typeof element == "string") {
 				return element;
 			} else {
 				return element.letter;
 			}
 		})
-		.join('');
+		.join("");
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from "svelte";
 
 	export let title: string;
 	export let message: string;
@@ -12,15 +12,15 @@
 	let errored = false;
 
 	export function open() {
-		text = '';
+		text = "";
 		errored = false;
 		dialog.showModal();
 	}
 
 	function close() {
-		if (dialog.returnValue === 'default') {
-			if (text === undefined || text === '') {
-				dispatch('cancel');
+		if (dialog.returnValue === "default") {
+			if (text === undefined || text === "") {
+				dispatch("cancel");
 				return;
 			}
 			if (match !== null && !match.test(text)) {
@@ -28,9 +28,9 @@
 				dialog.showModal();
 				return;
 			}
-			dispatch('ok', text);
+			dispatch("ok", text);
 		} else {
-			dispatch('cancel');
+			dispatch("cancel");
 		}
 	}
 </script>
@@ -86,8 +86,8 @@
 	form {
 		display: grid;
 		grid-template-areas:
-			'input input'
-			'cancel ok';
+			"input input"
+			"cancel ok";
 		gap: 0.3rem;
 
 		input {

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Modal from '$lib/components/modal.svelte';
-	import Rule from '$lib/components/rule.svelte';
-	import { grammar, ruleToString } from '$lib/grammar';
+	import Modal from "$lib/components/modal.svelte";
+	import Rule from "$lib/components/rule.svelte";
+	import { grammar, ruleToString } from "$lib/grammar";
 
 	let dialog: Modal;
 </script>
@@ -26,7 +26,7 @@
 		message="Enter the name of the new production rule"
 		match={/^[a-zA-Z]$/}
 		bind:this={dialog}
-		on:ok={(e) => grammar.setProduction(e.detail, [''])}
+		on:ok={(e) => grammar.setProduction(e.detail, [""])}
 	/>
 </nav>
 

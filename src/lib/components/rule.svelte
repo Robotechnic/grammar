@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { afterUpdate, createEventDispatcher } from 'svelte';
+	import { afterUpdate, createEventDispatcher } from "svelte";
 
 	export let name: string;
-	export let rules: string[] = [''];
+	export let rules: string[] = [""];
 	export let checked: boolean = false;
 
 	if (rules.length === 0) {
-		rules = ['']; // reset
+		rules = [""]; // reset
 	}
 
 	const cursorPosition = {
@@ -28,35 +28,35 @@
 		const inputElement = element as HTMLInputElement;
 		// replace epsilon with ε
 		const currentCursorPos = inputElement.selectionStart;
-		rules[i] = inputElement.value.replace(/epsilon/g, 'ε');
+		rules[i] = inputElement.value.replace(/epsilon/g, "ε");
 		if (currentCursorPos !== null && rules[i] !== inputElement.value) {
-			console.log('cursor pos', currentCursorPos);
+			console.log("cursor pos", currentCursorPos);
 			cursorPosition.position = currentCursorPos - 6;
 			cursorPosition.rule = inputElement;
 		}
 
-		dispatch('input', rules);
+		dispatch("input", rules);
 	}
 
 	function addRule() {
-		rules = [...rules, ''];
-		dispatch('input', rules);
+		rules = [...rules, ""];
+		dispatch("input", rules);
 	}
 
 	function removeRule(index: number) {
 		if (rules.length === 1) {
-			rules = ['']; // reset
+			rules = [""]; // reset
 		} else {
 			rules = rules.filter((_, i) => i !== index);
 		}
-		dispatch('input', rules);
+		dispatch("input", rules);
 	}
 
-	let groupValue = '';
+	let groupValue = "";
 	function startChange() {
 		console.log(groupValue);
-		if (groupValue === name || groupValue === '') {
-			dispatch('startChange', name);
+		if (groupValue === name || groupValue === "") {
+			dispatch("startChange", name);
 		}
 	}
 </script>
@@ -105,7 +105,7 @@
 			margin: 0;
 
 			&::after {
-				content: '→';
+				content: "→";
 				margin-right: 0.5rem;
 			}
 		}
@@ -131,7 +131,7 @@
 			&:checked {
 				background-color: $primary-color;
 				&::before {
-					content: '';
+					content: "";
 					display: block;
 					width: 0.5rem;
 					height: 0.5rem;

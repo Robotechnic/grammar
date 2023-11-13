@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from "svelte";
 
 	let element: HTMLElement | null = null;
 
@@ -7,7 +7,7 @@
 
 	function handleClick(event: MouseEvent): void {
 		if (element && !element.contains(event.target as Node)) {
-			dispatcher('clickOutside', event.target);
+			dispatcher("clickOutside", event.target);
 		}
 	}
 </script>

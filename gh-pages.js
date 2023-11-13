@@ -1,19 +1,21 @@
-import ghpages from 'gh-pages';
-import { execSync } from 'child_process';
+import ghpages from "gh-pages";
+import { execSync } from "child_process";
 
 // build project
-execSync('npm run format', { stdio: 'inherit' });
-execSync('npm run lint --fix', { stdio: 'inherit' });
-execSync('npm run check', { stdio: 'inherit' });
-execSync('npm run build', { stdio: 'inherit' });
+execSync("npm run format", { stdio: "inherit" });
+execSync("npm run lint --fix", { stdio: "inherit" });
+execSync("npm run check", { stdio: "inherit" });
+execSync("npm run build", { stdio: "inherit" });
+execSync("touch build/.nojekyll", { stdio: "inherit" });
 
 ghpages.publish(
-	'build',
+	"build",
 	{
-		branch: 'gh-pages',
+		branch: "gh-pages",
 		dotfiles: false,
-		message: 'Automatic deployment with gh-pages',
-		remote: 'origin',
+		message: "Automatic deployment with gh-pages",
+		remote: "origin",
+		src: ["**/*", ".nojekyll"],
 		verbose: true,
 		push: true,
 		silent: false
@@ -23,6 +25,6 @@ ghpages.publish(
 			console.error(err);
 		}
 		// clean folder after deploy
-		execSync('rm -rf build', { stdio: 'inherit' });
+		execSync("rm -rf build", { stdio: "inherit" });
 	}
 );

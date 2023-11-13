@@ -1,10 +1,10 @@
 <script lang="ts">
-	import RuleDisplay from './RuleDisplay.svelte';
-	import ClickOutside from '$lib/components/clickOutside.svelte';
-	import Symbol from '$lib/components/Symbol.svelte';
+	import RuleDisplay from "./RuleDisplay.svelte";
+	import ClickOutside from "$lib/components/clickOutside.svelte";
+	import Symbol from "$lib/components/Symbol.svelte";
 
-	import type { Rule, Variable } from '$lib/grammar';
-	import { grammar } from '$lib/grammar';
+	import type { Rule, Variable } from "$lib/grammar";
+	import { grammar } from "$lib/grammar";
 
 	let state: Rule = [];
 	type State = { index: number; rule: Rule };
@@ -15,7 +15,7 @@
 		state = [{ letter: $grammar.start, index: 0 }];
 	}
 
-	$: $grammar.start === '' ? (state = []) : start();
+	$: $grammar.start === "" ? (state = []) : start();
 
 	let displayPossibilities = false;
 	function showPossibilities(symbol: Variable) {
@@ -30,7 +30,7 @@
 
 	function possibiliy_keydown(event: KeyboardEvent, possibility: State) {
 		if (event.repeat) return;
-		if (event.key == 'Enter') {
+		if (event.key == "Enter") {
 			put_state(possibility);
 		}
 	}
@@ -39,7 +39,7 @@
 		let start = state.slice(0, possibility.index);
 		start = start.concat(
 			possibility.rule.map((symbol) => {
-				if (symbol && typeof symbol != 'string') {
+				if (symbol && typeof symbol != "string") {
 					return { letter: symbol.letter, index: symbol.index + possibility.index };
 				} else {
 					return symbol;
@@ -48,7 +48,7 @@
 		);
 		state = start.concat(
 			state.slice(possibility.index + 1).map((symbol) => {
-				if (symbol && typeof symbol != 'string') {
+				if (symbol && typeof symbol != "string") {
 					return { letter: symbol.letter, index: symbol.index + possibility.rule.length - 1 };
 				} else {
 					return symbol;
@@ -67,7 +67,7 @@
 <div class="manipulator_contener">
 	<div class="derivationTree" />
 	<div class="manipulator">
-		{#if $grammar.start === ''}
+		{#if $grammar.start === ""}
 			No start symbol
 		{:else}
 			<ClickOutside on:clickOutside={(event) => hidePossibilities(event.detail)}>
