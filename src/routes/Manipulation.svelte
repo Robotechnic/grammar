@@ -191,6 +191,7 @@
 			display: flex;
 			gap: 2rem;
 			flex-wrap: wrap;
+			padding: 2rem;
 
 			.possibility {
 				cursor: pointer;

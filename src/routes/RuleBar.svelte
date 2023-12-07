@@ -7,7 +7,9 @@
 </script>
 
 <nav class="productionRules">
-	<h2>Production rules</h2>
+	<div class="productionRules__top">
+		<h2>Production rules</h2>
+	</div>
 	<div class="productionRules__container">
 		{#each $grammar.productions as [name, _]}
 			<Rule
@@ -18,9 +20,12 @@
 			/>
 		{/each}
 	</div>
-	<button class="productionRules__addButton" on:click={() => dialog.open()}
-		>Add production rule</button
-	>
+	<div class="productionRules__bottom">
+		<button class="productionRules__bottom__addButton" on:click={() => dialog.open()}>
+			Add production rule</button
+		>
+	</div>
+	
 	<Modal
 		title="Add production rule"
 		message="Enter the name of the new production rule"
@@ -32,15 +37,44 @@
 
 <style lang="scss">
 	.productionRules {
+		overflow-x: scroll;
+		&__top {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: sticky;
+			top: 0;
+			background: linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 1) 40%,
+				rgba(255, 255, 255, 0) 100%
+			);
+		}
+
 		&__container {
 			display: flex;
 			flex-direction: column;
 			gap: 1rem;
 		}
 
-		&__addButton {
-			@include primary-button;
-			margin-top: 1rem;
+		&__bottom {
+			position: sticky;
+			bottom: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background: linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0) 0%,
+				rgba(255, 255, 255, 1) 80%
+			);
+
+			&__addButton {
+				@include primary-button;
+				margin-top: 1rem;
+				
+			}
 		}
 	}
 </style>
