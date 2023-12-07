@@ -13,6 +13,7 @@
 			<Rule
 				{name}
 				rules={$grammar.productions.get(name)?.map(ruleToString)}
+				on:input={(e) => grammar.setProduction(name, e.detail)}
 				bind:group={$grammar.start}
 			/>
 		{/each}
