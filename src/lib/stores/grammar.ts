@@ -90,10 +90,12 @@ function createGrammarStore() {
 			}),
 		toJSON: () => {
 			const g = get(grammar);
-			g.productions = Object.fromEntries(g.productions);
-			return g;
+			return {
+				productions: Object.fromEntries(g.productions),
+				start: g.start
+			};
 		},
-		fromJSON: (json: string) => {
+		fromJSON: (json: object) => {
 			const g = json as Grammar;
 			// check if the grammar is valid
 			if (!g.productions || !g.start) {

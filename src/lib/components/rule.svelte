@@ -7,7 +7,6 @@
 	export let rules: string[] = [""];
 	export let group = "";
 
-
 	if (rules.length === 0) {
 		rules = [""]; // reset
 	}
@@ -57,13 +56,7 @@
 </script>
 
 <div class="prule">
-	<input
-		class="prule__start"
-		type="radio"
-		name="ruleStart"
-		value={name}
-		bind:group={group}
-	/>
+	<input class="prule__start" type="radio" name="ruleStart" value={name} bind:group />
 	<h3 class="prule__name">{name}</h3>
 	<ul class="prule__applications">
 		{#each rules as _, i}

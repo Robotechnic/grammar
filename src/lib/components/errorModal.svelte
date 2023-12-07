@@ -15,7 +15,6 @@
 	function close() {
 		dispatch("ok");
 	}
-
 </script>
 
 <dialog bind:this={dialog} on:close={close}>

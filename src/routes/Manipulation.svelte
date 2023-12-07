@@ -16,7 +16,6 @@
 	let errorMessage = "";
 	let errorDialog: ErrorModal;
 	let inputDialog: InputModal;
-	
 
 	function reset() {
 		state = [{ letter: $grammar.start, index: 0 }];
@@ -167,7 +166,6 @@
 	on:ok={(event) => saveRules(event.detail)}
 	bind:this={inputDialog}
 />
-
 
 <style lang="scss">
 	.manipulator_contener {

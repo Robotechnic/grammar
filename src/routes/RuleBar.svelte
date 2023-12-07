@@ -25,7 +25,7 @@
 			Add production rule</button
 		>
 	</div>
-	
+
 	<Modal
 		title="Add production rule"
 		message="Enter the name of the new production rule"
@@ -44,11 +44,7 @@
 			align-items: center;
 			position: sticky;
 			top: 0;
-			background: linear-gradient(
-				180deg,
-				rgba(255, 255, 255, 1) 40%,
-				rgba(255, 255, 255, 0) 100%
-			);
+			background: linear-gradient(180deg, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 0) 100%);
 		}
 
 		&__container {
@@ -64,16 +60,11 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			background: linear-gradient(
-				180deg,
-				rgba(255, 255, 255, 0) 0%,
-				rgba(255, 255, 255, 1) 80%
-			);
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 80%);
 
 			&__addButton {
 				@include primary-button;
 				margin-top: 1rem;
-				
 			}
 		}
 	}
