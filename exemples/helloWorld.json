@@ -1,0 +1,229 @@
+{
+	"productions": {
+		"A": [
+			[
+				"H",
+				"e",
+				"l",
+				"l",
+				"o",
+				" ",
+				{
+					"letter": "B",
+					"index": 6
+				}
+			],
+			[
+				"H",
+				"e",
+				"l",
+				"l",
+				"o",
+				" ",
+				{
+					"letter": "C",
+					"index": 6
+				}
+			]
+		],
+		"B": [
+			[
+				"W",
+				"o",
+				"r",
+				"l",
+				"d",
+				" ",
+				"!"
+			]
+		],
+		"C": [
+			[
+				"a",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"b",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"c",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"d",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"e",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"f",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"g",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"h",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"i",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"j",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"k",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"l",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"m",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"n",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"o",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"p",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"q",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"r",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"s",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"t",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"u",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"v",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"w",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"x",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"y",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"z",
+				{
+					"letter": "C",
+					"index": 1
+				}
+			],
+			[
+				"!"
+			]
+		]
+	},
+	"start": "A"
+}

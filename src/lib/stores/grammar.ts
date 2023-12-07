@@ -91,10 +91,10 @@ function createGrammarStore() {
 		toJSON: () => {
 			const g = get(grammar);
 			g.productions = Object.fromEntries(g.productions);
-			return JSON.stringify(g);
+			return g;
 		},
 		fromJSON: (json: string) => {
-			const g = JSON.parse(json) as Grammar;
+			const g = json as Grammar;
 			// check if the grammar is valid
 			if (!g.productions || !g.start) {
 				throw new Error("Invalid grammar: missing fields");
