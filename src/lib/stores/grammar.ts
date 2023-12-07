@@ -103,7 +103,7 @@ function createGrammarStore() {
 			g.productions = new Map(Object.entries(g.productions));
 
 			if (g.productions.size == 0 || g.start == "") {
-				throw new Error("Invalid grammar: invalid fields");
+				throw new Error("Invalid grammar: empty fields");
 			}
 
 			if (!g.productions.has(g.start)) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Modal from "$lib/components/modal.svelte";
+	import Modal from "$lib/components/inputModal.svelte";
 	import Rule from "$lib/components/rule.svelte";
 	import { grammar, ruleToString } from "$lib/stores/grammar";
 

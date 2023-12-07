@@ -5,14 +5,22 @@
 
 	import type { Rule, Variable } from "$lib/stores/grammar";
 	import { grammar } from "$lib/stores/grammar";
+	import { derivationTree } from "$lib/stores/derivationtree";
+	import ErrorModal from "$lib/components/errorModal.svelte";
+	import InputModal from "$lib/components/inputModal.svelte";
 
 	let state: Rule = [];
 	type State = { index: number; rule: Rule };
 	let possibilities: State[] = [];
 	let ruleDisplay: HTMLDivElement;
+	let errorMessage = "";
+	let errorDialog: ErrorModal;
+	let inputDialog: InputModal;
+	
 
 	function reset() {
 		state = [{ letter: $grammar.start, index: 0 }];
+		derivationTree.reset();
 	}
 
 	$: $grammar.start === "" ? (state = []) : reset();
@@ -44,6 +52,7 @@
 	 * @param possibility the non terminal to replace
 	 */
 	function put_state(possibility: State) {
+		derivationTree.addRule(state);
 		let start = state.slice(0, possibility.index);
 		start = start.concat(
 			possibility.rule.map((symbol) => {
@@ -71,13 +80,13 @@
 		displayPossibilities = false;
 	}
 
-	function saveRules() {
+	function saveRules(name: string) {
 		let json = grammar.toJSON();
 		let blob = new Blob([JSON.stringify(json)], { type: "application/json" });
 		let url = URL.createObjectURL(blob);
 		let a = document.createElement("a");
 		a.href = url;
-		a.download = "grammar.json";
+		a.download = `${name}.json`;
 		a.click();
 		URL.revokeObjectURL(url);
 	}
@@ -92,7 +101,13 @@
 			let reader = new FileReader();
 			reader.onload = (event) => {
 				let json = JSON.parse(event.target?.result as string);
-				grammar.fromJSON(json);
+				try {
+					grammar.fromJSON(json);
+				} catch (error) {
+					let e = error as Error;
+					errorMessage = e.message;
+					errorDialog.open();
+				}
 			};
 			reader.readAsText(file);
 		};
@@ -134,10 +149,25 @@
 	</div>
 	<nav class="floating_nav">
 		<button on:click={() => reset()}>Reset</button>
-		<button on:click={() => saveRules()}>Save</button>
+		<button on:click={() => inputDialog.open()}>Save</button>
 		<button on:click={() => loadRules()}>Load</button>
 	</nav>
 </div>
+
+<ErrorModal
+	title="Import Error"
+	message={errorMessage}
+	on:ok={() => (errorMessage = "")}
+	bind:this={errorDialog}
+/>
+
+<InputModal
+	title="Grammar Name"
+	message="Enter the name of the grammar"
+	on:ok={(event) => saveRules(event.detail)}
+	bind:this={inputDialog}
+/>
+
 
 <style lang="scss">
 	.manipulator_contener {
