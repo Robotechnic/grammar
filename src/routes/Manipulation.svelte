@@ -3,21 +3,25 @@
 	import ClickOutside from "$lib/components/clickOutside.svelte";
 	import Symbol from "$lib/components/Symbol.svelte";
 
-	import type { Rule, Variable } from "$lib/grammar";
-	import { grammar } from "$lib/grammar";
+	import type { Rule, Variable } from "$lib/stores/grammar";
+	import { grammar } from "$lib/stores/grammar";
 
 	let state: Rule = [];
 	type State = { index: number; rule: Rule };
 	let possibilities: State[] = [];
 	let ruleDisplay: HTMLDivElement;
 
-	function start() {
+	function reset() {
 		state = [{ letter: $grammar.start, index: 0 }];
 	}
 
-	$: $grammar.start === "" ? (state = []) : start();
+	$: $grammar.start === "" ? (state = []) : reset();
 
 	let displayPossibilities = false;
+	/**
+	 * Show the possibilities for the given non terminal
+	 * @param symbol the non terminal
+	 */
 	function showPossibilities(symbol: Variable) {
 		displayPossibilities = true;
 		possibilities = ($grammar.productions.get(symbol.letter) as Rule[]).map((rule) => {
@@ -35,6 +39,10 @@
 		}
 	}
 
+	/**
+	 * Replace the symbol at the given index by the given rule
+	 * @param possibility the non terminal to replace
+	 */
 	function put_state(possibility: State) {
 		let start = state.slice(0, possibility.index);
 		start = start.concat(
@@ -61,6 +69,34 @@
 	function hidePossibilities(element: HTMLElement) {
 		if (ruleDisplay && ruleDisplay.contains(element)) return;
 		displayPossibilities = false;
+	}
+
+	function saveRules() {
+		let json = grammar.toJSON();
+		let blob = new Blob([JSON.stringify(json)], { type: "application/json" });
+		let url = URL.createObjectURL(blob);
+		let a = document.createElement("a");
+		a.href = url;
+		a.download = "grammar.json";
+		a.click();
+		URL.revokeObjectURL(url);
+	}
+
+	function loadRules() {
+		let input = document.createElement("input");
+		input.type = "file";
+		input.accept = "application/json";
+		input.onchange = (event) => {
+			let file = (event.target as HTMLInputElement).files?.[0];
+			if (!file) return;
+			let reader = new FileReader();
+			reader.onload = (event) => {
+				let json = JSON.parse(event.target?.result as string);
+				grammar.fromJSON(json);
+			};
+			reader.readAsText(file);
+		};
+		input.click();
 	}
 </script>
 
@@ -97,7 +133,9 @@
 		{/if}
 	</div>
 	<nav class="floating_nav">
-		<button on:click={() => start()}>Reset</button>
+		<button on:click={() => reset()}>Reset</button>
+		<button on:click={() => saveRules()}>Save</button>
+		<button on:click={() => loadRules()}>Load</button>
 	</nav>
 </div>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Terminal, Variable } from "$lib/grammar";
+	import type { Terminal, Variable } from "$lib/stores/grammar";
 	import { createEventDispatcher } from "svelte";
 
 	export let symbol: Variable | Terminal | null = null;

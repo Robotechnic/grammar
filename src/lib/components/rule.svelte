@@ -5,7 +5,8 @@
 
 	export let name: string;
 	export let rules: string[] = [""];
-	export let checked: boolean = false;
+	export let group = "";
+
 
 	if (rules.length === 0) {
 		rules = [""]; // reset
@@ -53,14 +54,6 @@
 		}
 		dispatch("input", rules);
 	}
-
-	let groupValue = "";
-	function startChange() {
-		console.log(groupValue);
-		if (groupValue === name || groupValue === "") {
-			dispatch("startChange", name);
-		}
-	}
 </script>
 
 <div class="prule">
@@ -68,10 +61,8 @@
 		class="prule__start"
 		type="radio"
 		name="ruleStart"
-		on:input={startChange}
 		value={name}
-		{checked}
-		bind:group={groupValue}
+		bind:group={group}
 	/>
 	<h3 class="prule__name">{name}</h3>
 	<ul class="prule__applications">

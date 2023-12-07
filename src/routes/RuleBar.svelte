@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Modal from "$lib/components/modal.svelte";
 	import Rule from "$lib/components/rule.svelte";
-	import { grammar, ruleToString } from "$lib/grammar";
+	import { grammar, ruleToString } from "$lib/stores/grammar";
 
 	let dialog: Modal;
 </script>
@@ -13,8 +13,7 @@
 			<Rule
 				{name}
 				rules={$grammar.productions.get(name)?.map(ruleToString)}
-				on:input={(e) => grammar.setProduction(name, e.detail)}
-				on:startChange={(e) => grammar.setStart(e.detail)}
+				bind:group={$grammar.start}
 			/>
 		{/each}
 	</div>

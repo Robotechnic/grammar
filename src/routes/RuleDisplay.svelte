@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Symbol from "$lib/components/Symbol.svelte";
 
-	import type { Rule, Variable } from "$lib/grammar";
-	import { grammar } from "$lib/grammar";
+	import type { Rule, Variable } from "$lib/stores/grammar";
+	import { grammar } from "$lib/stores/grammar";
 	import { createEventDispatcher } from "svelte";
 
 	export let state: Rule = [];
