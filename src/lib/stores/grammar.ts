@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { get, writable } from "svelte/store";
 
 export type Terminal = string | null;
 export type Variable = { letter: string; index: number };
@@ -87,7 +87,56 @@ function createGrammarStore() {
 			update((grammar) => {
 				grammar.start = start;
 				return grammar;
-			})
+			}),
+		toJSON: () => {
+			const g = get(grammar);
+			g.productions = Object.fromEntries(g.productions);
+			return JSON.stringify(g);
+		},
+		fromJSON: (json: string) => {
+			const g = JSON.parse(json) as Grammar;
+			// check if the grammar is valid
+			if (!g.productions || !g.start) {
+				throw new Error("Invalid grammar: missing fields");
+			}
+
+			g.productions = new Map(Object.entries(g.productions));
+
+			if (g.productions.size == 0 || g.start == "") {
+				throw new Error("Invalid grammar: invalid fields");
+			}
+
+			if (!g.productions.has(g.start)) {
+				throw new Error("Invalid grammar: no start symbol");
+			}
+
+			for (const [variable, rules] of g.productions) {
+				if (variable.length != 1) {
+					throw new Error("Invalid grammar: invalid variable");
+				}
+
+				for (const rule of rules) {
+					for (const [index, element] of rule.entries()) {
+						if (element === null) {
+							continue;
+						}
+						if (typeof element == "string" && element.length != 1) {
+							throw new Error("Invalid grammar: invalid terminal");
+						}
+						if (typeof element != "string") {
+							if (!g.productions.has(element.letter)) {
+								throw new Error("Invalid grammar: invalid variable");
+							}
+							if (element.index != index) {
+								throw new Error("Invalid grammar: invalid variable index");
+							}
+						}
+					}
+				}
+			}
+
+			set(g);
+		}
 	};
 }
 
