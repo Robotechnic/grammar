@@ -3,6 +3,7 @@
 	import { createEventDispatcher } from "svelte";
 
 	export let symbol: Variable | Terminal | null = null;
+	export let tabindex: number = -1;
 
 	let dispatcher = createEventDispatcher();
 	function showPossibilities(symbol: Variable): undefined {
@@ -25,7 +26,7 @@
 		class="nonterminal"
 		on:keypress={(e) => keyPossibilities(e, symbol)}
 		on:click={showPossibilities(symbol)}
-		tabindex="-1"
+		{tabindex}
 		role="button"
 	>
 		{symbol.letter}

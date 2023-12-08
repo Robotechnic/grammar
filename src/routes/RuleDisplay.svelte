@@ -5,10 +5,11 @@
 	import { grammar } from "$lib/stores/grammar";
 	import { createEventDispatcher } from "svelte";
 
-	export let state: Rule = [];
-	export let node: HTMLDivElement;
+	export let rule: Rule = [];
+	export let tabindex: number;
+	export let node: HTMLDivElement | undefined = undefined;
 
-	$: $grammar.start === "" ? (state = []) : (state = [{ letter: $grammar.start, index: 0 }]);
+	$: $grammar.start === "" ? (rule = []) : (rule = [{ letter: $grammar.start, index: 0 }]);
 	let dispatcher = createEventDispatcher();
 	function showPossibilities(symbol: Variable): undefined {
 		dispatcher("nonterminal", symbol);
@@ -16,7 +17,7 @@
 </script>
 
 <div class="rule_display" bind:this={node}>
-	{#each state as symbol}
-		<Symbol {symbol} on:nonterminal={(e) => showPossibilities(e.detail)} />
+	{#each rule as symbol}
+		<Symbol {symbol} on:nonterminal={(e) => showPossibilities(e.detail)} {tabindex} />
 	{/each}
 </div>

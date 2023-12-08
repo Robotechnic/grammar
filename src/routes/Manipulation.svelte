@@ -8,8 +8,9 @@
 	import { derivationTree } from "$lib/stores/derivationtree";
 	import ErrorModal from "$lib/components/errorModal.svelte";
 	import InputModal from "$lib/components/inputModal.svelte";
+	import DerivationTree from "./DerivationTree.svelte";
+	import { currentManipulationState } from "$lib/stores/manipulationState";
 
-	let state: Rule = [];
 	type State = { index: number; rule: Rule };
 	let possibilities: State[] = [];
 	let ruleDisplay: HTMLDivElement;
@@ -18,11 +19,12 @@
 	let inputDialog: InputModal;
 
 	function reset() {
-		state = [{ letter: $grammar.start, index: 0 }];
+		$currentManipulationState = [{ letter: $grammar.start, index: 0 }];
 		derivationTree.reset();
+		derivationTree.addRule($currentManipulationState);
 	}
 
-	$: $grammar.start === "" ? (state = []) : reset();
+	$: $grammar.start === "" ? ($currentManipulationState = []) : reset();
 
 	let displayPossibilities = false;
 	/**
@@ -51,7 +53,7 @@
 	 * @param possibility the non terminal to replace
 	 */
 	function put_state(possibility: State) {
-		derivationTree.addRule(state);
+		let state = $currentManipulationState;
 		let start = state.slice(0, possibility.index);
 		start = start.concat(
 			possibility.rule.map((symbol) => {
@@ -71,6 +73,8 @@
 				}
 			})
 		);
+		$currentManipulationState = state;
+		derivationTree.addRule(state);
 		displayPossibilities = false;
 	}
 
@@ -112,10 +116,34 @@
 		};
 		input.click();
 	}
+
+	function manageKeyPress(event: KeyboardEvent) {
+		if (event.key == "z" && event.ctrlKey) {
+			derivationTree.removeRule();
+			event.stopPropagation();
+			event.preventDefault();
+			return false;
+		}
+		if (event.key == "s" && event.ctrlKey) {
+			inputDialog.open();
+			event.stopPropagation();
+			event.preventDefault();
+			return false;
+		}
+
+		if (event.key == "l" && event.ctrlKey) {
+			loadRules();
+			event.stopPropagation();
+			event.preventDefault();
+			return false;
+		}
+	}
+
 </script>
 
+<svelte:body on:keydown={manageKeyPress} />
 <div class="manipulator_contener">
-	<div class="derivationTree" />
+	<DerivationTree />
 	<div class="manipulator">
 		{#if $grammar.start === ""}
 			No start symbol
@@ -128,7 +156,7 @@
 								class="possibility"
 								on:click={() => put_state(possibility)}
 								on:keypress={(event) => possibiliy_keydown(event, possibility)}
-								tabindex="-1"
+								tabindex="0"
 								role="button"
 							>
 								{#each possibility.rule as symbol}
@@ -142,7 +170,8 @@
 			<RuleDisplay
 				bind:node={ruleDisplay}
 				on:nonterminal={(event) => showPossibilities(event.detail)}
-				{state}
+				rule={$currentManipulationState}
+				tabindex={0}
 			/>
 		{/if}
 	</div>
