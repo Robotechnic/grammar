@@ -138,7 +138,6 @@
 			return false;
 		}
 	}
-
 </script>
 
 <svelte:body on:keydown={manageKeyPress} />

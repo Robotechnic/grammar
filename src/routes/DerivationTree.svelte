@@ -4,14 +4,13 @@
 	import RuleDisplay from "./RuleDisplay.svelte";
 
 	function keypress(e: KeyboardEvent, i: number) {
-		if (e.key == "Enter") 
-			derivationTree.restore(i);
+		if (e.key == "Enter") derivationTree.restore(i);
 	}
 
 	let contener: HTMLElement | null = null;
 
 	$: {
-		$derivationTree
+		$derivationTree;
 		tick().then(() => {
 			if (contener) {
 				contener.scrollTo({ left: contener.scrollWidth, behavior: "smooth" });
@@ -24,19 +23,25 @@
 	{#if $derivationTree.length == 0}
 		<p>Click on a non terminal symbol to start</p>
 	{:else}
-		{#each $derivationTree as derivation, i }
-			<div 
-				class="derivationTree__derivation" 
+		{#each $derivationTree as derivation, i}
+			<div
+				class="derivationTree__derivation"
 				on:click={() => derivationTree.restore(i)}
 				on:keypress={(e) => keypress(e, i)}
 				role="button"
 				tabindex="0"
 			>
-				<RuleDisplay rule={derivation} tabindex={-1}/>
+				<RuleDisplay rule={derivation} tabindex={-1} />
 			</div>
 			{#if i != $derivationTree.length - 1}
 				<div class="arrow">
-					<svg width="30" height="30" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<svg
+						width="30"
+						height="30"
+						viewBox="0 0 50 50"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
 						<path d="M0 25H50" stroke="black" stroke-width="2" />
 						<path d="M40 15L50 25L40 35" stroke="black" stroke-width="2" />
 					</svg>
@@ -47,7 +52,7 @@
 </nav>
 
 <style lang="scss">
-	@use 'sass:color';
+	@use "sass:color";
 	.derivationTree {
 		padding: 1rem 0 1rem 1rem;
 		display: flex;
@@ -58,12 +63,15 @@
 		overflow-y: hidden;
 		overflow-x: scroll;
 		max-width: 70vw;
-		gap: .3rem;
+		gap: 0.3rem;
 		position: relative;
-		
+
 		&::before {
 			$gradient-size: 5%;
-			$gradient-shade: lighten($color: $primary-color, $amount: 75%);
+			$gradient-shade: lighten(
+				$color: $primary-color,
+				$amount: 75%
+			);
 			$gradient-color: color.adjust($gradient-shade, $alpha: -0.9);
 			background: linear-gradient(
 				to right,

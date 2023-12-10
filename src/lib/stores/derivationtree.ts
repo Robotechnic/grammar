@@ -9,16 +9,18 @@ function createDerivationTreeStore() {
 		set,
 		update,
 		reset: () => set([]),
-		restore: (rule: number) => update((rules) => {
-			currentManipulationState.set(rules[rule]);
-			return rules.slice(0, rule + 1);
-		}),
+		restore: (rule: number) =>
+			update((rules) => {
+				currentManipulationState.set(rules[rule]);
+				return rules.slice(0, rule + 1);
+			}),
 		addRule: (rule: Rule) => update((rules) => [...rules, rule]),
-		removeRule: () => update((rules) =>{
-			if (rules.length < 2) return rules;
-			currentManipulationState.set(rules[rules.length - 2]);
-			return rules.slice(0, -1);
-		})
+		removeRule: () =>
+			update((rules) => {
+				if (rules.length < 2) return rules;
+				currentManipulationState.set(rules[rules.length - 2]);
+				return rules.slice(0, -1);
+			})
 	};
 }
 
