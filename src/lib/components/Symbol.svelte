@@ -20,7 +20,11 @@
 {#if symbol === null}
 	<span class="terminal">ε</span>
 {:else if typeof symbol === "string"}
-	<span class="terminal">{symbol}</span>
+	{#if symbol === " "}
+		<span class="terminal">␣</span>
+	{:else}
+		<span class="terminal">{symbol}</span>
+	{/if}
 {:else}
 	<span
 		class="nonterminal"

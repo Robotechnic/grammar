@@ -172,6 +172,7 @@
 				on:nonterminal={(event) => showPossibilities(event.detail)}
 				rule={$currentManipulationState}
 				tabindex={0}
+				allowWrap={true}
 			/>
 		{/if}
 	</div>
