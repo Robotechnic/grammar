@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { derivationTree } from "$lib/stores/derivationtree";
+	import Symbol from "$lib/components/Symbol.svelte";
 	import { tick } from "svelte";
 	import RuleDisplay from "./RuleDisplay.svelte";
 
@@ -23,15 +24,18 @@
 	{#if $derivationTree.length == 0}
 		<p>Click on a non terminal symbol to start</p>
 	{:else}
-		{#each $derivationTree as derivation, i}
+		{#each $derivationTree as derivation, i (derivation.length)}
 			<div
 				class="derivationTree__derivation"
 				on:click={() => derivationTree.restore(i)}
 				on:keypress={(e) => keypress(e, i)}
 				role="button"
 				tabindex="0"
+				id={`derivationTree__derivation-${derivation.length}`}
 			>
-				<RuleDisplay rule={derivation} tabindex={-1} />
+				{#each $derivationTree[i] as symbol}
+					<Symbol {symbol} tabindex={0} />
+				{/each}
 			</div>
 			{#if i != $derivationTree.length - 1}
 				<div class="arrow">

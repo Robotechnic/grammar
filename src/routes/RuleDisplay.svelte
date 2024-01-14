@@ -6,6 +6,7 @@
 	import { createEventDispatcher } from "svelte";
 
 	export let rule: Rule = [];
+
 	export let tabindex: number;
 	export let node: HTMLDivElement | undefined = undefined;
 	export let allowWrap: boolean = false;
