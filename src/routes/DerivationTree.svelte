@@ -2,7 +2,6 @@
 	import { derivationTree } from "$lib/stores/derivationtree";
 	import Symbol from "$lib/components/Symbol.svelte";
 	import { tick } from "svelte";
-	import RuleDisplay from "./RuleDisplay.svelte";
 
 	function keypress(e: KeyboardEvent, i: number) {
 		if (e.key == "Enter") derivationTree.restore(i);
